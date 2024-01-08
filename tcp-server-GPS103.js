@@ -9,8 +9,14 @@ net.createServer(socket => {
     //socket.setEncoding('utf8');
     console.log('Client connected');
 
+    // echo
+    //socket.write(data)
+    socket.pipe(socket);
+
     socket.on('data', (data) => {
         console.log(data.toString());
+        //socket.write(data)
+        //socket.pipe(socket);
     });
 
 }).listen({port: PORT, host: HOSTNAME}, () => {
