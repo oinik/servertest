@@ -23,6 +23,7 @@ const PORT = 10101;
 
 net.createServer(socket => {
     //socket.setEncoding('utf8');
+    socket.setTimeout(180000); // 3 minutes of inactivity 
     console.log("Client connected", socket.address());
 
     // echo
@@ -40,6 +41,11 @@ net.createServer(socket => {
     socket.on('error', (err) => {
         console.log(`Error: ${err}`);
     });
+
+    socket.on('timeout', () => {
+        console.log('socket timeout');
+        socket.end();
+    })
 
 }).listen({port: PORT, host: HOSTNAME}, () => {
     console.log(`${new Date()} :: server ready and listening on port ${PORT}`);
